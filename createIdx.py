@@ -1,5 +1,5 @@
 
-# class of creating IDX from specified file
+# creating IDX from specified file
 # types:
 # 0: hash
 # 1: B+- treee
