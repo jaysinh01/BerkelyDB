@@ -19,21 +19,21 @@ def processDate(inputArray):
 
 
 def processScore(inputArray):
-    #TODO: date list will be : [< or> , score , < or> , score, ...]
+    #TODO: score list will be : [< or> , score , < or> , score, ...]
     print("score completed")
 
 
 def processPrice(inputArray):
-    #TODO: date list will be : [< or> , price , < or> , price, ...]
+    #TODO: price list will be : [< or> , price , < or> , price, ...]
     print("price completed")
 
 
 def processPterm(inputArray):
-    #TODO: date list will be : [data, data, ...]
+    #TODO: pterm list will be : [data, data, ...]
     print("pTerm completed")
 
 
 def processRterm(inputArray):
-    #TODO: date list will be : [data, data , ...]
+    #TODO: rterm list will be : [data, data , ...]
     print("rTerm completed")
 
