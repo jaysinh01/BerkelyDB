@@ -21,47 +21,128 @@ def processDate(inputArray):
 
 
 def processScore(inputArray):
-    #TODO: score list will be : [< or> , score , < or> , score, ...]
+    #TODO: date list will be : [< or> , score , < or> , score, ...]
     print("score completed")
 
 
 def processPrice(inputArray):
-    #TODO: price list will be : [< or> , price , < or> , price, ...]
+    #TODO: date list will be : [< or> , price , < or> , price, ...]
+    database = db.DB()
+    database.open("sc.idx")
+    curs = database.cursor()
+    iter = curs.first
+    print(inputArray)
+    index = 0;
+    while index < len(inputArray):
+        if inputArray[index] == "<":
+            value = float(iter[0].decode('utf-8'))
+            index = index + 1
+            compare_value = float(inputArray[index])
+            if value <= compare_value:
+                
+        else:
+            
+    for term in inputArray:
+        if term[-1] == "%":
+            regex = re.compile(term[:-1])
+            iter = curs.set_range(term[:-1].encode("utf-8"))
+            while iter:
+                key_to_compare = iter[0].decode("utf-8")
+                if re.match(regex, key_to_compare):
+                    pTermResult.append(iter[1].decode("utf-8"))
+                    iter = curs.next()
+                else:
+                    break
+            
+        else:
+            iter = curs.set_range(term.encode("utf-8"))
+            while iter:
+                key_to_compare = iter[0].decode("utf-8")
+                if term == key_to_compare:
+                    pTermResult.append(iter[1].decode("utf-8"))
+                    iter = curs.next()
+                else:
+                    break
+    curs.close()
+    database.close()
+    print(pTermResult)
+
     print("price completed")
 
 
 def processPterm(inputArray):
-    #TODO: pterm list will be : [data, data, ...]
+    #TODO: date list will be : [data, data, ...]
+    database = db.DB()
+    database.open("pt.idx")
+    curs = database.cursor()
+    print(inputArray)
+    for term in inputArray:
+        if term[-1] == "%":
+            regex = re.compile(term[:-1])
+            iter = curs.set_range(term[:-1].encode("utf-8"))
+            while iter:
+                key_to_compare = iter[0].decode("utf-8")
+                if re.match(regex, key_to_compare):
+                    pTermResult.append(iter[1].decode("utf-8"))
+                    iter = curs.next()
+                else:
+                    break
+            
+        else:
+            iter = curs.set_range(term.encode("utf-8"))
+            while iter:
+                key_to_compare = iter[0].decode("utf-8")
+                if term == key_to_compare:
+                    pTermResult.append(iter[1].decode("utf-8"))
+                    iter = curs.next()
+                else:
+                    break
+    curs.close()
+    database.close()
+    print(pTermResult)
+
     print("pTerm completed")
 
 
 def processRterm(inputArray):
-
     #TODO: date list will be : [data, data , ...]
-	database = db.DB()
+    database = db.DB()
 	#database.set_flags(db.DB_DUP)
 	#flag = db.DB_BTREE
-	database.open("rt.idx")
-	curs = database.cursor()
-	print(inputArray)
-	iter = curs.set_range(inputArray[0].encode("utf-8"))
+    database.open("rt.idx")
+    curs = database.cursor()
+    print(inputArray)
 	#iter = curs.first()
 	#print(type(iter))
 	#key_to_compare = iter[0].decode("utf-8")
-	regex = re.compile(inputArray[0] + '+')
-	while iter:
-		key_to_compare = iter[0].decode("utf-8")	
-		if re.match(regex, key_to_compare):
-			print(iter)
-			iter = curs.next()
-		else:
-			break
-	curs.close()
-	database.close()	
+    for term in inputArray:
+        if term[-1] == "%":
+            regex = re.compile(term[:-1])
+            iter = curs.set_range(term[:-1].encode("utf-8"))
+            while iter:
+                key_to_compare = iter[0].decode("utf-8")
+                if re.match(regex, key_to_compare):
+                    #print(iter)
+                    rTermResult.append(iter[1].decode("utf-8"))
+                    iter = curs.next()
+                else:
+                    break
+			
+        else:
+            iter = curs.set_range(term.encode("utf-8"))
+            while iter:
+                key_to_compare = iter[0].decode("utf-8")
+                if term == key_to_compare:
+                    #print(iter)
+                    rTermResult.append(iter[1].decode("utf-8"))
+                    iter = curs.next()
+                else:
+                    break
+    curs.close()
+    database.close()
     #while iter:
      #   print(iter)
       #  iter = curs.next()
     #value.decode("utf-8")
-	print("rTerm completed")
-
-
+    print("rTerm completed")
+    print(rTermResult)
