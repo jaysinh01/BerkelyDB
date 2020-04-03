@@ -1,3 +1,5 @@
+from bsddb3 import db
+import re
 
 dateResult = []
 scoreResult = []
@@ -35,5 +37,29 @@ def processPterm(inputArray):
 
 def processRterm(inputArray):
     #TODO: date list will be : [data, data , ...]
-    print("rTerm completed")
+	database = db.DB()
+	#database.set_flags(db.DB_DUP)
+	#flag = db.DB_BTREE
+	database.open("rt.idx")
+	curs = database.cursor()
+	print(inputArray)
+	iter = curs.set_range(inputArray[0].encode("utf-8"))
+	#iter = curs.first()
+	#print(type(iter))
+	#key_to_compare = iter[0].decode("utf-8")
+	regex = re.compile(inputArray[0] + '+')
+	while iter:
+		key_to_compare = iter[0].decode("utf-8")	
+		if re.match(regex, key_to_compare):
+			print(iter)
+			iter = curs.next()
+		else:
+			break
+	curs.close()
+	database.close()	
+    #while iter:
+     #   print(iter)
+      #  iter = curs.next()
+    #value.decode("utf-8")
+	print("rTerm completed")
 

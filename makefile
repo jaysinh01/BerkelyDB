@@ -4,13 +4,13 @@ reviews:reviewsort
 	python3 createIdx.py reviews.txt rw.idx 0 ,
 
 products:productsort
-	python3 createIdx.py pterms_sorted.txt pt.idx 1 ,
+	python3 createIdx.py pterms.txt pt.idx 1 ,
 
 rev:revsort
-	python3 createIdx.py rterms_sorted.txt rt.idx 1 ,
+	python3 createIdx.py rterms.txt rt.idx 1 ,
 
 scores:scoresort
-	python3 createIdx.py scores_sorted.txt sc.idx 1 ,
+	python3 createIdx.py scores.txt sc.idx 1 ,
 
 all: reviews products rev scores
 

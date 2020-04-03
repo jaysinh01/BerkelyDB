@@ -136,7 +136,7 @@ def processInput():
 
 
 if __name__ == '__main__':
-    inputString = raw_input("Please enter your query: ")
+    inputString = input("Please enter your query: ")
     global fullOutput
     if inputString == "output=full":
        fullOutput = True
