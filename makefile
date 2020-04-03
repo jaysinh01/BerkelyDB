@@ -1,16 +1,28 @@
 FILENAME: createIdx.py
 
-reviews:reviewsort
-	python3 createIdx.py reviews.txt rw.idx 0 ,
+reviews:reviewsort perlreviewsort
+	db_load -T -t hash rw.idx < reviews.txt
 
-products:productsort
-	python3 createIdx.py pterms.txt pt.idx 1 ,
+perlreviewsort:
+	perl break.pl < reviews.txt > reviews.txt
 
-rev:revsort
-	python3 createIdx.py rterms.txt rt.idx 1 ,
+products:productsort perlproductsort
+	db_load -c duplicates=1 -T -t btree pt.idx < pterms.txt
 
-scores:scoresort
-	python3 createIdx.py scores.txt sc.idx 1 ,
+perlproductsort:
+	perl break.pl < pterms.txt > pterms.txt
+
+rev:revsort perlrevsort
+	db_load -c duplicates=1 -T -t btree rt.idx < rterms.txt
+
+perlrevsort:
+	perl break.pl < rterms.txt > rterms.txt
+
+scores:scoresort perlscoresort
+	db_load -c duplicates=1 -T -t btree sc.idx < scores.txt
+
+perlscoresort:
+	perl break.pl < scores.txt > scores.txt
 
 all: reviews products rev scores
 
@@ -26,3 +38,4 @@ revsort:
 
 scoresort:
 	sort -u scores.txt -o scores.txt
+
